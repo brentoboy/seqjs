@@ -1,6 +1,26 @@
 const seq = require("../../src/seq.js")
 
 const tests = {
+	"it should wrap iterables": (assert) => {
+		let range = { from: 1, to: 5}
+		// make it iterable
+		range[Symbol.iterator] = function() {
+			return {
+				current: this.from,
+				last: this.to,
+				next: () => {
+					if (this.current <= this.last) {
+						return { done: false, value: this.current++ };
+					} else {
+					return { done: true };
+					}
+				}
+			}
+		}
+		
+		let x = seq(range);
+		assert.equal("bound iterable_seq__getWalker", x.getWalker.name);
+	}
 // I dont like this test being here... not sure where to put it.
 // 	"it should be iterable": (assert) => {
 // 		let sq = seq("brent")

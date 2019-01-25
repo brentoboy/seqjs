@@ -2,6 +2,14 @@ const seq = require("../src/seq.js")
 const assert = require("./assert.js")
 
 const tests = {
+	'seq (create function)': {
+		'when an existing seq is wrapped it should not re-wrap it': (assert) => {
+			let x = seq(['test'])
+			let y = seq(x)
+			assert.equal(x, y)
+		}
+	},
+
 	'Sequence.NullHandler': require("./handlers/null.test.js"),
 	'Sequence.ArrayHandler': require("./handlers/array.test.js"),
 	'Sequence.StringHandler': require("./handlers/string.test.js"),

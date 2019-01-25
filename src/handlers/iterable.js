@@ -5,7 +5,7 @@ const SeqIterableHandler = {
 	createSequence: iterable_seq__create,
 }
 function iterable_seq__create(iterable) {
-	const newSeq = new seq.Class()
+	const newSeq = new Sequence()
 	newSeq._iterable = iterable
 	newSeq.getWalker = iterable_seq__getWalker.bind(newSeq)
 	return newSeq
