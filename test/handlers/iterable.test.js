@@ -19,7 +19,6 @@ const tests = {
 		}
 		
 		let x = seq(range);
-		assert.equal("bound iterable_seq__getWalker", x.getWalker.name);
 	}
 // I dont like this test being here... not sure where to put it.
 // 	"it should be iterable": (assert) => {

@@ -1,6 +1,7 @@
-const Sequence = require("../sequence.js")
+const Seq = require("../seq.js")
 
-const singleton = new Sequence()
+const singleton = Seq.create();
+
 singleton.getWalker = function null_seq__getWalker() { 
 	return {
 		step: return_null,
@@ -9,12 +10,14 @@ singleton.getWalker = function null_seq__getWalker() {
 		isFirst: return_null,
 	}
 }
+
 function return_null() {
 	return null
 }
+
 const SeqNullHandler = {
 	canHandle: x => (x === undefined || x === null || x === Infinity || x === -Infinity || /* isNaN */ x !== x),
-	createSequence: () => singleton,
+	createSeq: () => singleton,
 }
 
 module.exports = SeqNullHandler

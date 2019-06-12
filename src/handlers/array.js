@@ -1,24 +1,24 @@
-const Sequence = require("../sequence.js")
+const Seq = require("../seq.js")
 
 const SeqArrayHandler = {
 	canHandle: Array.isArray,
-	createSequence: array_seq__create,
+	createSeq: SeqArray_create,
 }
-function array_seq__create(list) {
-	const newSeq = new Sequence()
+function SeqArray_create(list) {
+	const newSeq = Seq.create()
 	newSeq._list = list
-	newSeq.getWalker = array_seq__getWalker.bind(newSeq)
+	newSeq.getWalker = () => SeqArray_getWalker(newSeq)
 	return newSeq
 }
-function array_seq__getWalker() {
+function SeqArray_getWalker(that) {
 	let i = -1
 	return {
-		value: () => this._list[i],
+		value: () => that._list[i],
 		index: () => i,
 		isFirst: () => i == 0,
-		step: () => ++i < this._list.length
+		step: () => ++i < that._list.length
 	}
 }
-Array[Sequence.EJECTOR] = seqX => [...seqX]
+Array[Seq.EJECTOR] = seqX => [...seqX]
 
 module.exports = SeqArrayHandler

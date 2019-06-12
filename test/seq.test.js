@@ -1,4 +1,4 @@
-const seq = require("../src/seq.js")
+const seq = require("../src/index.js")
 const assert = require("./assert.js")
 
 const tests = {

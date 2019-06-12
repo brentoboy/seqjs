@@ -1,24 +1,24 @@
-const Sequence = require("../sequence.js")
+const Seq = require("../seq.js")
 
 const SeqStringHandler = {
 	canHandle: x => (typeof x === "string" || (typeof x === "object" && x instanceof String)),
-	createSequence: string_seq__create,
+	createSeq: SeqString_create,
 }
-function string_seq__create(str) {
-	const newSeq = new Sequence()
+function SeqString_create(str) {
+	const newSeq = Seq.create()
 	newSeq._str = str
-	newSeq.getWalker = string_seq__getWalker.bind(newSeq)
+	newSeq.getWalker = () => SeqString_getWalker(newSeq)
 	return newSeq
 }
-function string_seq__getWalker() {
+function SeqString_getWalker(that) {
 	let i = -1;
 	return {
-		step: () => ++i < this._str.length,
-		value: () => this._str.charAt(i),
+		step: () => ++i < that._str.length,
+		value: () => that._str.charAt(i),
 		index: () => i,
 		isFirst: () => i == 0,
 	};
 }
-String[Sequence.EJECTOR] = seqX => seqX.eject(Array).join("")
+String[Seq.EJECTOR] = seqX => seqX.eject(Array).join("")
 
 module.exports = SeqStringHandler

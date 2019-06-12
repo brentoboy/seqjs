@@ -1,19 +1,19 @@
-const Sequence = require("../sequence.js")
+const Seq = require("../seq.js")
 
 const SeqIterableHandler = {
 	canHandle: x => typeof x[Symbol.iterator] === "function",
-	createSequence: iterable_seq__create,
+	createSeq: SeqIterable_create,
 }
-function iterable_seq__create(iterable) {
-	const newSeq = new Sequence()
+function SeqIterable_create(iterable) {
+	const newSeq = Seq.create()
 	newSeq._iterable = iterable
-	newSeq.getWalker = iterable_seq__getWalker.bind(newSeq)
+	newSeq.getWalker = () => SeqIterable_getWalker(newSeq)
 	return newSeq
 }
-function iterable_seq__getWalker() {
+function SeqIterable_getWalker(that) {
 	let i = -1
 	let node = null
-	let itr = this._iterable[Symbol.iterator]()
+	let itr = that._iterable[Symbol.iterator]()
 	return {
 		step: () => { node = itr.next(); i++; return !node.done; },
 		value: () => node && node.value,
